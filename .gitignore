@@ -41,6 +41,7 @@ test-output/
 lombok.config
 
 # REST-assured / Allure / reports
+.allure
 allure-results/
 allure-report/
 report/
