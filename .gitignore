@@ -1,0 +1,52 @@
+# Maven target directory
+.mvn
+/target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+logs/
+log/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment & configuration
+.env
+*.properties.local
+*.yaml.local
+
+# Build artifacts
+*.class
+*.jar
+*.war
+*.ear
+
+# Test reports and temp files
+surefire-reports/
+test-output/
+*.swp
+*.swo
+
+# Lombok generated config (optional)
+lombok.config
+
+# REST-assured / Allure / reports
+allure-results/
+allure-report/
+report/
+reports/
+
+# JUnit / Temp dirs
+out/
+tmp/
+temp/
