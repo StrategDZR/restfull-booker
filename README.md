@@ -3,7 +3,8 @@ A lightweight Java framework for API testing of https://restful-booker.herokuapp
 
 ## How to run tests:
 
-```mvn clean test```
+```mvn clean test```   
+Tests will be run in parallel
 
 ## How to open Allure report:
 
