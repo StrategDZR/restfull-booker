@@ -10,7 +10,7 @@ import java.util.Properties;
 public class ConfigManager {
 
     private static final String PROPERTIES_PATH = System.getProperty("env", "prod") + ".properties";
-    private static final Properties properties = new Properties();
+    private static final Properties PROPERTIES = new Properties();
 
     static {
         try (InputStream inputStream = ConfigManager.class
@@ -19,15 +19,15 @@ public class ConfigManager {
             if (inputStream == null) {
                 throw new RuntimeException("Config file not found: " + PROPERTIES_PATH);
             }
-            properties.load(inputStream);
+            PROPERTIES.load(inputStream);
             log.info("Loaded config from {}", PROPERTIES_PATH);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load properties file: " + PROPERTIES_PATH, e);
         }
     }
 
-    public static String get(String key) {
-        return properties.getProperty(key);
+    private static String get(String key) {
+        return PROPERTIES.getProperty(key);
     }
 
     public static String getBaseUrl() {
