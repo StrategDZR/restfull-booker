@@ -1,27 +1,39 @@
 package com.example.config;
 
-import java.io.IOException;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.InputStream;
 import java.util.Properties;
 
+@Slf4j
 public class ConfigManager {
 
-    private static final String PROPERTIES_PATH = "prod.properties";
-    private static final Properties PROPERTIES = new Properties();
+    private static final String PROPERTIES_PATH = System.getProperty("env", "prod") + ".properties";
+    private static Properties properties;
 
-    static {
-        try (InputStream input = ConfigManager.class.getClassLoader()
-                .getResourceAsStream(PROPERTIES_PATH)) {
-            if (input == null) {
-                throw new RuntimeException(PROPERTIES_PATH + " file not found");
+    @SneakyThrows
+    private static Properties getProperties() {
+        if (properties == null) {
+            properties = new Properties();
+            try (InputStream inputStream = ConfigManager.class
+                    .getClassLoader()
+                    .getResourceAsStream(PROPERTIES_PATH)) {
+                if (inputStream == null) {
+                    throw new RuntimeException("Config file not found: " + PROPERTIES_PATH);
+                }
+                properties.load(inputStream);
+                log.info("Loaded config from {}", PROPERTIES_PATH);
             }
-            PROPERTIES.load(input);
-        } catch (IOException e) {
-            throw new RuntimeException("Config loading error: " + e.getMessage());
         }
+        return properties;
+    }
+
+    public static String get(String key) {
+        return getProperties().getProperty(key);
     }
 
     public static String getBaseUrl() {
-        return System.getProperty("baseUrl",PROPERTIES.getProperty("base.url"));
+        return get("base.url");
     }
 }
